@@ -11,8 +11,8 @@ import (
 	"github.com/winterssy/mxget/pkg/api"
 )
 
-func (a *API) SearchSongs(ctx context.Context, keyword string) ([]*api.Song, error) {
-	resp, err := a.SearchSongsRawV2(ctx, keyword, 1, 50)
+func (a *API) SearchSongs(ctx context.Context, keyword string, page int, pageSize int) ([]*api.Song, error) {
+	resp, err := a.SearchSongsRawV2(ctx, keyword, page, pageSize)
 	if err != nil {
 		return nil, err
 	}

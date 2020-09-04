@@ -3,6 +3,7 @@ package search
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -13,8 +14,10 @@ import (
 )
 
 var (
-	keyword string
-	from    string
+	keyword  string
+	from     string
+	page     int
+	pageSize int
 )
 
 var CmdSearch = &cobra.Command{
@@ -25,6 +28,18 @@ var CmdSearch = &cobra.Command{
 func Run(cmd *cobra.Command, args []string) {
 	if keyword == "" {
 		keyword = utils.Input("Keyword")
+		fmt.Println()
+	}
+
+	if page == 0 {
+		pageStr := utils.Input("page")
+		page, _ = strconv.Atoi(pageStr)
+		fmt.Println()
+	}
+
+	if pageSize == 0 {
+		pageSizeStr := utils.Input("pageSize")
+		pageSize, _ = strconv.Atoi(pageSizeStr)
 		fmt.Println()
 	}
 
@@ -39,7 +54,7 @@ func Run(cmd *cobra.Command, args []string) {
 	}
 
 	fmt.Printf("Search %q from [%s]...\n\n", keyword, provider.GetDesc(platform))
-	result, err := client.SearchSongs(context.Background(), keyword)
+	result, err := client.SearchSongs(context.Background(), keyword, page, pageSize)
 	if err != nil {
 		glog.Fatal(err)
 	}
@@ -60,5 +75,7 @@ func Run(cmd *cobra.Command, args []string) {
 func init() {
 	CmdSearch.Flags().StringVarP(&keyword, "keyword", "k", "", "search keyword")
 	CmdSearch.Flags().StringVar(&from, "from", "", "music platform")
+	CmdSearch.Flags().IntVarP(&page, "page", "p", 0, "page")
+	CmdSearch.Flags().IntVarP(&pageSize, "pageSize", "r", 0, "pageSize")
 	CmdSearch.Run = Run
 }

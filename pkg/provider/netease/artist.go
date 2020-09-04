@@ -11,7 +11,7 @@ import (
 	"github.com/winterssy/mxget/pkg/api"
 )
 
-func (a *API) GetArtist(ctx context.Context, artistId string) (*api.Collection, error) {
+func (a *API) GetArtist(ctx context.Context, artistId string, page int, pageSize int) (*api.Collection, error) {
 	_artistId, err := strconv.Atoi(artistId)
 	if err != nil {
 		return nil, err

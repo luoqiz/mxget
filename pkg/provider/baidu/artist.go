@@ -10,8 +10,8 @@ import (
 	"github.com/winterssy/mxget/pkg/api"
 )
 
-func (a *API) GetArtist(ctx context.Context, tingUid string) (*api.Collection, error) {
-	resp, err := a.GetArtistRaw(ctx, tingUid, 0, 50)
+func (a *API) GetArtist(ctx context.Context, tingUid string, page int, pageSize int) (*api.Collection, error) {
+	resp, err := a.GetArtistRaw(ctx, tingUid, page, pageSize)
 	if err != nil {
 		return nil, err
 	}

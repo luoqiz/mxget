@@ -22,6 +22,7 @@ const (
 	apiGetArtistSongs = "http://www.kuwo.cn/api/www/artist/artistMusic"
 	apiGetAlbum       = "http://www.kuwo.cn/api/www/album/albumInfo"
 	apiGetPlaylist    = "http://www.kuwo.cn/api/www/playlist/playListInfo"
+	apiGetRank        = "http://www.kuwo.cn/api/www/bang/bang/bangMenu"
 
 	songDefaultBR = 128
 )
@@ -49,6 +50,29 @@ type (
 		SongTimeMinutes string `json:"songTimeMinutes"`
 		Lyric           string `json:"-"`
 		URL             string `json:"-"`
+	}
+
+	Rank struct {
+		Sourceid string `json:"sourceid"`
+		Intro    string `json:"intro"`
+		Name     string `json:"name"`
+		ID       string `json:"id"`
+		Source   string `json:"source"`
+		Pic      string `json:"pic"`
+		Pub      string `json:"pub"`
+	}
+
+	RankInfo struct {
+		Name string `json:"name"`
+		List []Rank `json:"list"`
+	}
+
+	RankResponse struct {
+		CommonResponse
+		CurTime   int64      `json:"curTime"`
+		ProfileID string     `json:"profileId"`
+		ReqID     string     `json:"reqId"`
+		Data      []RankInfo `json:"data"`
 	}
 
 	SearchSongsResponse struct {
@@ -138,6 +162,10 @@ func (c *CommonResponse) errorMessage() string {
 		return strconv.Itoa(c.Code)
 	}
 	return c.Msg
+}
+
+func (s *RankResponse) String() string {
+	return utils.PrettyJSON(s)
 }
 
 func (s *SearchSongsResponse) String() string {

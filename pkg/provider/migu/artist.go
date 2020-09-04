@@ -10,7 +10,7 @@ import (
 	"github.com/winterssy/mxget/pkg/api"
 )
 
-func (a *API) GetArtist(ctx context.Context, singerId string) (*api.Collection, error) {
+func (a *API) GetArtist(ctx context.Context, singerId string, page int, pageSize int) (*api.Collection, error) {
 	artistInfo, err := a.GetArtistInfoRaw(ctx, singerId)
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func (a *API) GetArtist(ctx context.Context, singerId string) (*api.Collection, 
 		return nil, errors.New("get artist info: no data")
 	}
 
-	artistSongs, err := a.GetArtistSongsRaw(ctx, singerId, 1, 50)
+	artistSongs, err := a.GetArtistSongsRaw(ctx, singerId, page, pageSize)
 	if err != nil {
 		return nil, err
 	}

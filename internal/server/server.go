@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/winterssy/mxget/pkg/provider"
@@ -24,7 +25,16 @@ func searchSongs(c *gin.Context) {
 		return
 	}
 
-	data, err := client.SearchSongs(context.Background(), c.Param("keyword"))
+	page, pageErr := strconv.Atoi(c.Param("page"))
+	if pageErr != nil {
+		page = 1
+	}
+	pageSize, pageSizeErr := strconv.Atoi(c.Param("pageSize"))
+	if pageSizeErr != nil {
+		pageSize = 50
+	}
+
+	data, err := client.SearchSongs(context.Background(), c.Param("keyword"), page, pageSize)
 	if err != nil {
 		c.JSON(500, Response{
 			Code: 500,
@@ -76,7 +86,16 @@ func getArtist(c *gin.Context) {
 		return
 	}
 
-	data, err := client.GetArtist(context.Background(), c.Param("id"))
+	page, pageErr := strconv.Atoi(c.Param("page"))
+	if pageErr != nil {
+		page = 1
+	}
+	pageSize, pageSizeErr := strconv.Atoi(c.Param("pageSize"))
+	if pageSizeErr != nil {
+		pageSize = 50
+	}
+
+	data, err := client.GetArtist(context.Background(), c.Param("id"), page, pageSize)
 	if err != nil {
 		c.JSON(500, Response{
 			Code: 500,

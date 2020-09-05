@@ -60,7 +60,19 @@ Use "mxget [command] --help" for more information about a command.
 - 搜索歌曲
 
 ```sh
-$ mxget search --from nc -k Faded
+$ mxget search --from nc -k Faded -p 1 -r 100
+```
+
+- 查看排行榜（目前支持酷我）
+
+```sh
+$ mxget rank --from kw 
+```
+
+- 查看排行榜里的音乐列表（目前支持酷我）
+
+```sh
+$ mxget --from kw -b 93 -p 1 -r 10
 ```
 
 - 下载歌曲

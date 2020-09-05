@@ -11,10 +11,14 @@ type Song struct {
 	Id        string `json:"id"`
 	Name      string `json:"name"`
 	Artist    string `json:"artist"`
+	ArtistId  string `json:"artist_id,omitempty"`
 	Album     string `json:"album"`
+	AlbumId   string `json:"album_id,omitempty"`
+	AlbumPic  string `json:"album_pic,omitempty"`
 	PicURL    string `json:"pic_url,omitempty"`
 	Lyric     string `json:"lyric,omitempty"`
 	ListenURL string `json:"listen_url,omitempty"`
+	Duration  int    `json:"duration"`
 }
 
 type Rank struct {
@@ -37,6 +41,7 @@ type Collection struct {
 type Provider interface {
 	SearchSongs(ctx context.Context, keyword string, page int, pageSize int) ([]*Song, error)
 	GetRank(ctx context.Context) ([]*Rank, error)
+	GetRankList(ctx context.Context, bangId string, page int, pageSize int) ([]*Song, error)
 	GetSong(ctx context.Context, songId string) (*Song, error)
 	GetArtist(ctx context.Context, artistId string, page int, pageSize int) (*Collection, error)
 	GetAlbum(ctx context.Context, albumId string) (*Collection, error)

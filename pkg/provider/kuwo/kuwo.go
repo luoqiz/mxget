@@ -14,17 +14,17 @@ import (
 )
 
 const (
-	apiSearch         = "http://www.kuwo.cn/api/www/search/searchMusicBykeyWord"
-	apiGetSong        = "http://www.kuwo.cn/api/www/music/musicInfo"
-	apiGetSongURL     = "http://www.kuwo.cn/url?format=mp3&response=url&type=convert_url3"
-	apiGetSongLyric   = "http://www.kuwo.cn/newh5/singles/songinfoandlrc"
-	apiGetArtistInfo  = "http://www.kuwo.cn/api/www/artist/artist"
-	apiGetArtistSongs = "http://www.kuwo.cn/api/www/artist/artistMusic"
-	apiGetAlbum       = "http://www.kuwo.cn/api/www/album/albumInfo"
-	apiGetPlaylist    = "http://www.kuwo.cn/api/www/playlist/playListInfo"
-	apiGetRank        = "http://www.kuwo.cn/api/www/bang/bang/bangMenu"
-
-	songDefaultBR = 128
+	apiSearch          = "http://www.kuwo.cn/api/www/search/searchMusicBykeyWord"
+	apiGetSong         = "http://www.kuwo.cn/api/www/music/musicInfo"
+	apiGetSongURL      = "http://www.kuwo.cn/url?format=mp3&response=url&type=convert_url3"
+	apiGetSongLyric    = "http://www.kuwo.cn/newh5/singles/songinfoandlrc"
+	apiGetArtistInfo   = "http://www.kuwo.cn/api/www/artist/artist"
+	apiGetArtistSongs  = "http://www.kuwo.cn/api/www/artist/artistMusic"
+	apiGetAlbum        = "http://www.kuwo.cn/api/www/album/albumInfo"
+	apiGetPlaylist     = "http://www.kuwo.cn/api/www/playlist/playListInfo"
+	apiGetRank         = "http://www.kuwo.cn/api/www/bang/bang/bangMenu"
+	apiGetRankListInfo = "http://www.kuwo.cn/api/www/bang/bang/musicList"
+	songDefaultBR      = 128
 )
 
 var (
@@ -73,6 +73,52 @@ type (
 		ProfileID string     `json:"profileId"`
 		ReqID     string     `json:"reqId"`
 		Data      []RankInfo `json:"data"`
+	}
+
+	RankMusicList struct {
+		Musicrid         string   `json:"musicrid"`
+		Artist           string   `json:"artist"`
+		Mvpayinfo        struct{} `json:"-"`
+		Trend            string   `json:"trend"`
+		Pic              string   `json:"pic"`
+		Isstar           int      `json:"isstar"`
+		Rid              int      `json:"rid"`
+		Duration         int      `json:"duration"`
+		Score100         string   `json:"score100"`
+		ContentType      string   `json:"content_type"`
+		RankChange       string   `json:"rank_change"`
+		Track            int      `json:"track"`
+		HasLossless      bool     `json:"hasLossless"`
+		Hasmv            int      `json:"hasmv"`
+		ReleaseDate      string   `json:"releaseDate"`
+		Album            string   `json:"album"`
+		Albumid          int      `json:"albumid"`
+		Pay              string   `json:"pay"`
+		Artistid         int      `json:"artistid"`
+		Albumpic         string   `json:"albumpic"`
+		Originalsongtype int      `json:"originalsongtype"`
+		SongTimeMinutes  string   `json:"songTimeMinutes"`
+		IsListenFee      bool     `json:"isListenFee"`
+		Pic120           string   `json:"pic120"`
+		Name             string   `json:"name"`
+		Online           int      `json:"online"`
+		PayInfo          struct{} `json:"-"`
+		Nationid         string   `json:"nationid,omitempty"`
+	}
+
+	RankListData struct {
+		Img       string          `json:"img"`
+		Num       string          `json:"num"`
+		Pub       string          `json:"pub"`
+		MusicList []RankMusicList `json:"musicList,omitempty"`
+	}
+
+	RankListResponse struct {
+		CommonResponse
+		CurTime   int64        `json:"curTime"`
+		ProfileID string       `json:"profileId"`
+		ReqID     string       `json:"reqId"`
+		Data      RankListData `json:"data"`
 	}
 
 	SearchSongsResponse struct {
@@ -165,6 +211,10 @@ func (c *CommonResponse) errorMessage() string {
 }
 
 func (s *RankResponse) String() string {
+	return utils.PrettyJSON(s)
+}
+
+func (s *RankListResponse) String() string {
 	return utils.PrettyJSON(s)
 }
 

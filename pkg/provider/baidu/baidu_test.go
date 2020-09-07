@@ -25,7 +25,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestAPI_SearchSongs(t *testing.T) {
-	result, err := client.SearchSongs(ctx, "五月天")
+	result, err := client.SearchSongs(ctx, "五月天", 1, 100)
 	if assert.NoError(t, err) {
 		t.Log(result)
 	}
@@ -46,7 +46,7 @@ func TestAPI_GetSongLyric(t *testing.T) {
 }
 
 func TestAPI_GetArtist(t *testing.T) {
-	artist, err := client.GetArtist(ctx, "1557")
+	artist, err := client.GetArtist(ctx, "1557", 1, 100)
 	if assert.NoError(t, err) {
 		t.Log(artist)
 	}

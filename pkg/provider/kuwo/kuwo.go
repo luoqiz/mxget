@@ -24,6 +24,7 @@ const (
 	apiGetPlaylist     = "http://www.kuwo.cn/api/www/playlist/playListInfo"
 	apiGetRank         = "http://www.kuwo.cn/api/www/bang/bang/bangMenu"
 	apiGetRankListInfo = "http://www.kuwo.cn/api/www/bang/bang/musicList"
+	apiGetPlayLists    = "http://www.kuwo.cn/api/pc/classify/playlist/getRcmPlayList"
 	songDefaultBR      = 320
 )
 
@@ -186,6 +187,40 @@ type (
 			Img700    string  `json:"img700"`
 			MusicList []*Song `json:"musicList"`
 		} `json:"data"`
+	}
+
+	PlayListsResponse struct {
+		CommonResponse
+		CurTime   int64     `json:"curTime"`
+		Data      PlayLists `json:"data"`
+		ProfileID string    `json:"profileId"`
+		ReqID     string    `json:"reqId"`
+	}
+	PlayModel struct {
+		Img          string `json:"img"`
+		Uname        string `json:"uname"`
+		LosslessMark string `json:"lossless_mark"`
+		Favorcnt     string `json:"favorcnt"`
+		Isnew        string `json:"isnew"`
+		Extend       string `json:"extend"`
+		UID          string `json:"uid"`
+		Total        string `json:"total"`
+		Commentcnt   string `json:"commentcnt"`
+		Imgscript    string `json:"imgscript"`
+		Digest       string `json:"digest"`
+		Name         string `json:"name"`
+		Listencnt    string `json:"listencnt"`
+		ID           string `json:"id"`
+		Attribute    string `json:"attribute"`
+		RadioID      string `json:"radio_id"`
+		Desc         string `json:"desc"`
+		Info         string `json:"info"`
+	}
+	PlayLists struct {
+		Total int         `json:"total"`
+		Data  []PlayModel `json:"data"`
+		Rn    int         `json:"rn"`
+		Pn    int         `json:"pn"`
 	}
 
 	API struct {

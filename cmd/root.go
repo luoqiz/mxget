@@ -6,6 +6,7 @@ import (
 	"github.com/winterssy/mxget/cmd/artist"
 	"github.com/winterssy/mxget/cmd/config"
 	"github.com/winterssy/mxget/cmd/playlist"
+	playlist2 "github.com/winterssy/mxget/cmd/playlists"
 	"github.com/winterssy/mxget/cmd/rank"
 	"github.com/winterssy/mxget/cmd/ranklist"
 	"github.com/winterssy/mxget/cmd/search"
@@ -53,4 +54,5 @@ func init() {
 	CmdRoot.AddCommand(config.CmdSet)
 	CmdRoot.AddCommand(rank.CmdRank)
 	CmdRoot.AddCommand(ranklist.CmdRankList)
+	CmdRoot.AddCommand(playlist2.CmdPlaylists)
 }

@@ -38,6 +38,12 @@ type Collection struct {
 	Songs  []*Song `json:"songs"`
 }
 
+type Playlist struct {
+	ID    string `json:"id"`
+	Img   string `json:"img"`
+	Name  string `json:"name"`
+	Total string `json:"total"`
+}
 type Provider interface {
 	SearchSongs(ctx context.Context, keyword string, page int, pageSize int) ([]*Song, error)
 	GetRank(ctx context.Context) ([]*Rank, error)
@@ -45,6 +51,7 @@ type Provider interface {
 	GetSong(ctx context.Context, songId string) (*Song, error)
 	GetArtist(ctx context.Context, artistId string, page int, pageSize int) (*Collection, error)
 	GetAlbum(ctx context.Context, albumId string) (*Collection, error)
+	GetPlayLists(ctx context.Context, page int, pageSize int) ([]*Playlist, error)
 	GetPlaylist(ctx context.Context, playlistId string) (*Collection, error)
 	SendRequest(req *ghttp.Request) (*ghttp.Response, error)
 }

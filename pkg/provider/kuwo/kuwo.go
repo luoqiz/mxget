@@ -24,7 +24,7 @@ const (
 	apiGetPlaylist     = "http://www.kuwo.cn/api/www/playlist/playListInfo"
 	apiGetRank         = "http://www.kuwo.cn/api/www/bang/bang/bangMenu"
 	apiGetRankListInfo = "http://www.kuwo.cn/api/www/bang/bang/musicList"
-	songDefaultBR      = 128
+	songDefaultBR      = 320
 )
 
 var (

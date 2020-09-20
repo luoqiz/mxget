@@ -46,6 +46,8 @@ func (a *API) GetRankListRaw(ctx context.Context, bangId string, page int, pageS
 		"rn":     pageSize,
 	}
 
+	fmt.Println(params)
+
 	resp := new(RankListResponse)
 	req, _ := ghttp.NewRequest(ghttp.MethodGet, apiGetRankListInfo)
 	req.SetQuery(params)

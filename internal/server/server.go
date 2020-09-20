@@ -25,11 +25,14 @@ func searchSongs(c *gin.Context) {
 		return
 	}
 
-	page, pageErr := strconv.Atoi(c.Param("page"))
+	pn := c.DefaultQuery("pn", "1")
+	page, pageErr := strconv.Atoi(pn)
 	if pageErr != nil {
 		page = 1
 	}
-	pageSize, pageSizeErr := strconv.Atoi(c.Param("pageSize"))
+
+	rn := c.DefaultQuery("rn", "50")
+	pageSize, pageSizeErr := strconv.Atoi(rn)
 	if pageSizeErr != nil {
 		pageSize = 50
 	}
@@ -86,11 +89,14 @@ func getArtist(c *gin.Context) {
 		return
 	}
 
-	page, pageErr := strconv.Atoi(c.Param("page"))
+	pn := c.DefaultQuery("pn", "1")
+	page, pageErr := strconv.Atoi(pn)
 	if pageErr != nil {
 		page = 1
 	}
-	pageSize, pageSizeErr := strconv.Atoi(c.Param("pageSize"))
+
+	rn := c.DefaultQuery("rn", "50")
+	pageSize, pageSizeErr := strconv.Atoi(rn)
 	if pageSizeErr != nil {
 		pageSize = 50
 	}
@@ -162,6 +168,108 @@ func getPlaylist(c *gin.Context) {
 	})
 }
 
+func getRank(c *gin.Context) {
+	platform := c.Param("platform")
+	client, err := provider.GetClient(platform)
+	if err != nil {
+		c.JSON(400, Response{
+			Code: 400,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	data, err := client.GetRank(context.Background())
+	if err != nil {
+		c.JSON(500, Response{
+			Code: 500,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, Response{
+		Code: 200,
+		Data: data,
+	})
+}
+
+func getRankList(c *gin.Context) {
+	platform := c.Param("platform")
+	client, err := provider.GetClient(platform)
+	if err != nil {
+		c.JSON(400, Response{
+			Code: 400,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	pn := c.DefaultQuery("pn", "1")
+	page, pageErr := strconv.Atoi(pn)
+	if pageErr != nil {
+		page = 1
+	}
+
+	rn := c.DefaultQuery("rn", "50")
+	pageSize, pageSizeErr := strconv.Atoi(rn)
+	if pageSizeErr != nil {
+		pageSize = 50
+	}
+
+	data, err := client.GetRankList(context.Background(), c.Param("id"), page, pageSize)
+	if err != nil {
+		c.JSON(500, Response{
+			Code: 500,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, Response{
+		Code: 200,
+		Data: data,
+	})
+}
+
+func getPlayList(c *gin.Context) {
+	platform := c.Param("platform")
+	client, err := provider.GetClient(platform)
+	if err != nil {
+		c.JSON(400, Response{
+			Code: 400,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	pn := c.DefaultQuery("pn", "1")
+	page, pageErr := strconv.Atoi(pn)
+	if pageErr != nil {
+		page = 1
+	}
+
+	rn := c.DefaultQuery("rn", "50")
+	pageSize, pageSizeErr := strconv.Atoi(rn)
+	if pageSizeErr != nil {
+		pageSize = 50
+	}
+
+	data, err := client.GetPlayLists(context.Background(), page, pageSize)
+	if err != nil {
+		c.JSON(500, Response{
+			Code: 500,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, Response{
+		Code: 200,
+		Data: data,
+	})
+}
+
 func Init(router *gin.Engine) {
 	r := router.Group("/api")
 
@@ -170,4 +278,7 @@ func Init(router *gin.Engine) {
 	r.GET("/:platform/artist/:id", getArtist)
 	r.GET("/:platform/album/:id", getAlbum)
 	r.GET("/:platform/playlist/:id", getPlaylist)
+	r.GET("/:platform/rank", getRank)
+	r.GET("/:platform/rankList/:id", getRankList)
+	r.GET("/:platform/playList", getPlayList)
 }

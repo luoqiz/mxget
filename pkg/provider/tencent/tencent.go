@@ -23,6 +23,7 @@ const (
 	apiGetArtist     = "https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?format=json&platform=yqq&newsong=1&order=listen"
 	apiGetAlbum      = "https://c.y.qq.com/v8/fcg-bin/fcg_v8_album_detail_cp.fcg?format=json&platform=yqq&newsong=1"
 	apiGetPlaylist   = "https://c.y.qq.com/v8/fcg-bin/fcg_v8_playlist_cp.fcg?format=json&platform=yqq&newsong=1"
+	apiGetPlaylists  = "https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg?picmid=1&g_tk_new_20200303=5381&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=0&categoryId=10000000&sortId=5"
 
 	artistPicURLTmpl = "https://y.gtimg.cn/music/photo_new/T001R800x800M000%s.jpg"
 	albumPicURLTmpl  = "https://y.gtimg.cn/music/photo_new/T002R800x800M000%s.jpg"
@@ -155,6 +156,38 @@ type (
 				PicURL   string  `json:"dir_pic_url2"`
 				SongList []*Song `json:"songlist"`
 			} `json:"cdlist"`
+		} `json:"data"`
+	}
+
+	PlaylistsResponse struct {
+		CommonResponse
+		Data struct {
+			CategoryId int64 `json:"categoryId"`
+			Ein        int64 `json:"ein"`
+			Sin        int64 `json:"sin"`
+			SortId     int64 `json:"sortId"`
+			Sum        int64 `json:"sum"`
+			Uin        int64 `json:"uin"`
+			List       []struct {
+				CommitTime   string  `json:"commit_time"`
+				Createtime   string  `json:"createtime"`
+				Dissid       string  `json:"dissid"`
+				DissName     string  `json:"dissname"`
+				Imgurl       string  `json:"imgurl"`
+				Introduction string  `json:"introduction"`
+				Listennum    int64   `json:"listennum"`
+				Score        float64 `json:"score"`
+				Version      int     `json:"version"`
+				Creator      struct {
+					avatarUrl  string `json:"avatarUrl"`
+					EncryptUin string `json:"encrypt_uin"`
+					Followflag int    `json:"followflag"`
+					isVip      int    `json:"isVip"`
+					name       int    `json:"name"`
+					qq         int    `json:"qq"`
+					type1      int    `json:"type"`
+				} `json:"creator"`
+			} `json:"list"`
 		} `json:"data"`
 	}
 

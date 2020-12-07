@@ -39,10 +39,11 @@ type Collection struct {
 }
 
 type Playlist struct {
-	ID    string `json:"id"`
-	Img   string `json:"img"`
-	Name  string `json:"name"`
-	Total string `json:"total"`
+	ID        string `json:"id"`
+	Img       string `json:"img"`
+	Name      string `json:"name"`
+	Total     string `json:"total"`
+	ListenNum int64  `json:"listen_num"`
 }
 type Provider interface {
 	SearchSongs(ctx context.Context, keyword string, page int, pageSize int) ([]*Song, error)

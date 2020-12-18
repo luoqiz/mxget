@@ -19,7 +19,7 @@ func (a *API) GetPlayLists(ctx context.Context, page int, pageSize int) ([]*api.
 	if n == 0 {
 		return nil, errors.New("search songs: no data")
 	}
-	fmt.Print(resp.Data)
+
 	playlists := make([]*api.Playlist, n)
 	for i, s := range resp.Data.Data {
 		playlists[i] = &api.Playlist{

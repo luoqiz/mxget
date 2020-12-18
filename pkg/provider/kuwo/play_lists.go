@@ -27,7 +27,7 @@ func (a *API) GetPlayLists(ctx context.Context, page int, pageSize int) ([]*api.
 			Name:      strings.TrimSpace(s.Name),
 			Img:       strings.TrimSpace(s.Img),
 			Total:     s.Total,
-			ListenNum: s.Listencnt / 10000,
+			ListenNum: s.Listencnt,
 		}
 	}
 	return playlists, nil

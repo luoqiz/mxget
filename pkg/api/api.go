@@ -42,8 +42,8 @@ type Playlist struct {
 	ID        string `json:"id"`
 	Img       string `json:"img"`
 	Name      string `json:"name"`
-	Total     int64  `json:"total.string"`
-	ListenNum int64  `json:"listen_num"`
+	Total     int64  `json:"total,string"`
+	ListenNum int64  `json:"listenNum,omitempty"`
 }
 type Provider interface {
 	SearchSongs(ctx context.Context, keyword string, page int, pageSize int) ([]*Song, error)

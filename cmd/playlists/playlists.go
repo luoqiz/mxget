@@ -53,7 +53,7 @@ func Run(cmd *cobra.Command, args []string) {
 	}
 
 	for i, p := range playlist {
-		glog.Infof("%v - %s - %s", i, p.ID, p.Name)
+		glog.Infof("%v - %s - %s - %v - %v - %s", i, p.ID, p.Name, p.ListenNum, p.Total, p.Img)
 	}
 }
 

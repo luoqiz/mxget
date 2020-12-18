@@ -204,12 +204,12 @@ type (
 		Isnew        string `json:"isnew"`
 		Extend       string `json:"extend"`
 		UID          string `json:"uid"`
-		Total        string `json:"total"`
+		Total        int64  `json:"total,string"`
 		Commentcnt   string `json:"commentcnt"`
 		Imgscript    string `json:"imgscript"`
 		Digest       string `json:"digest"`
 		Name         string `json:"name"`
-		Listencnt    string `json:"listencnt"`
+		Listencnt    int64  `json:"listencnt,string,omitempty"`
 		ID           string `json:"id"`
 		Attribute    string `json:"attribute"`
 		RadioID      string `json:"radio_id"`

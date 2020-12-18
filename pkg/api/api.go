@@ -42,7 +42,7 @@ type Playlist struct {
 	ID        string `json:"id"`
 	Img       string `json:"img"`
 	Name      string `json:"name"`
-	Total     string `json:"total"`
+	Total     int64  `json:"total.string"`
 	ListenNum int64  `json:"listen_num"`
 }
 type Provider interface {

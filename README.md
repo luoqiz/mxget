@@ -75,6 +75,14 @@ $ mxget rank --from kw
 $ mxget --from kw -b 93 -p 1 -r 10
 ```
 
+- 查看歌单（目前支持酷我、QQ）
+
+```sh
+$ mxget --from kw playlists -p 1 -r 5
+或者
+$ mxget --from kw playlists --page 1 --pageSize 20
+```
+
 - 下载歌曲
 
 ```sh
